@@ -56,7 +56,51 @@
                     @endif
                 </div>
             </div>
+            <!-- Notification Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-3">
+                <x-dropdown align="right" width="80">
+                    <x-slot name="trigger">
+                        <button class="relative p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                            <!-- Icon Lonceng -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
 
+                            <!-- Badge Counter (Kuning/Red) -->
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                            <span class="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                                {{ Auth::user()->unreadNotifications->count() }}
+                            </span>
+                            @endif
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="p-3 border-b border-gray-100 flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-700">Notifikasi System</span>
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                            <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="text-indigo-600 hover:underline">Tandai semua dibaca</button>
+                            </form>
+                            @endif
+                        </div>
+
+                        <div class="max-h-60 overflow-y-auto divide-y divide-gray-100">
+                            @forelse(Auth::user()->notifications as $notification)
+                            <a href="{{ route('notifications.read', $notification->id) }}" class="block p-3 text-xs text-gray-700 hover:bg-gray-50 {{ $notification->read_at ? 'opacity-60' : 'bg-blue-50/50 font-semibold' }}">
+                                <p class="text-gray-800">{{ $notification->data['pesan'] }}</p>
+                                <span class="text-[10px] text-gray-400 mt-1 block">{{ $notification->created_at->diffForHumans() }}</span>
+                            </a>
+                            @empty
+                            <div class="p-4 text-center text-xs text-gray-400">
+                                Tidak ada notifikasi baru.
+                            </div>
+                            @endforelse
+                        </div>
+                    </x-slot>
+                </x-dropdown>
+            </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">

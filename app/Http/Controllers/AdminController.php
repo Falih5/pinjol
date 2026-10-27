@@ -6,6 +6,7 @@ use App\Models\Aset;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\StatusPeminjamanUpdated;
 
 class AdminController extends Controller
 {
@@ -35,7 +36,7 @@ class AdminController extends Controller
             ->whereIn('status_pengajuan', ['Disetujui', 'Dipinjam'])
             ->where(function ($query) use ($peminjaman) {
                 $query->where('waktu_mulai', '<', $peminjaman->waktu_selesai)
-                      ->where('waktu_selesai', '>', $peminjaman->waktu_mulai);
+                    ->where('waktu_selesai', '>', $peminjaman->waktu_mulai);
             })
             ->exists();
 
@@ -47,6 +48,12 @@ class AdminController extends Controller
             'status_pengajuan' => 'Disetujui',
             'id_admin_approval' => Auth::user()->id_user,
         ]);
+
+        // Kirim notifikasi ke Peminjam
+        $peminjaman->user->notify(new StatusPeminjamanUpdated(
+            $peminjaman,
+            "Pengajuan peminjaman aset '{$peminjaman->aset->nama_aset}' Anda telah DISETUJUI oleh Admin. Silakan ambil barang di gudang."
+        ));
 
         return back()->with('success', 'Pengajuan peminjaman berhasil disetujui!');
     }
@@ -60,6 +67,12 @@ class AdminController extends Controller
             'status_pengajuan' => 'Ditolak',
             'id_admin_approval' => Auth::user()->id_user,
         ]);
+
+        // Kirim notifikasi ke Peminjam
+        $peminjaman->user->notify(new StatusPeminjamanUpdated(
+            $peminjaman,
+            "Pengajuan peminjaman aset '{$peminjaman->aset->nama_aset}' Anda DITOLAK oleh Admin Sarpras."
+        ));
 
         return back()->with('success', 'Pengajuan peminjaman berhasil ditolak.');
     }

@@ -9,7 +9,7 @@ use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 // Route terproteksi (Harus Login)
 Route::middleware(['auth'])->group(function () {
+    Route::get('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
