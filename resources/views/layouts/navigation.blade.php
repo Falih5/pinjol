@@ -18,37 +18,41 @@
 
                     <!-- Menu Khusus Admin Sarpras -->
                     @if(auth()->user()->hasRole('Admin'))
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Persetujuan Peminjaman') }}
-                        </x-nav-link>
-                        <!-- Navigation Link Sendiri untuk Kelola Aset -->
-                        <x-nav-link :href="route('admin.aset.index')" :active="request()->routeIs('admin.aset.*')">
-                            {{ __('Kelola Aset') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Persetujuan Peminjaman') }}
+                    </x-nav-link>
+                    <!-- Navigation Link Sendiri untuk Kelola Aset -->
+                    <x-nav-link :href="route('admin.aset.index')" :active="request()->routeIs('admin.aset.*')">
+                        {{ __('Kelola Aset') }}
+                    </x-nav-link>
+                    <!-- Navigation Link Kelola User -->
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                        {{ __('Kelola User') }}
+                    </x-nav-link>
                     @endif
 
                     <!-- Menu Khusus Petugas Gudang -->
                     @if(auth()->user()->hasRole('Petugas'))
-                        <x-nav-link :href="route('petugas.dashboard')" :active="request()->routeIs('petugas.*')">
-                            {{ __('Serah Terima Barang') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('petugas.dashboard')" :active="request()->routeIs('petugas.*')">
+                        {{ __('Serah Terima Barang') }}
+                    </x-nav-link>
                     @endif
 
                     <!-- Menu Khusus Peminjam -->
                     @if(auth()->user()->hasRole('Peminjam'))
-                        <x-nav-link :href="route('peminjam.dashboard')" :active="request()->routeIs('peminjam.dashboard')">
-                            {{ __('Pengajuan Peminjaman') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('peminjam.pelanggaran')" :active="request()->routeIs('peminjam.pelanggaran')">
-                            {{ __('Pelanggaran Saya') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('peminjam.dashboard')" :active="request()->routeIs('peminjam.dashboard')">
+                        {{ __('Pengajuan Peminjaman') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('peminjam.pelanggaran')" :active="request()->routeIs('peminjam.pelanggaran')">
+                        {{ __('Pelanggaran Saya') }}
+                    </x-nav-link>
                     @endif
 
                     <!-- Menu Khusus Pimpinan -->
                     @if(auth()->user()->hasRole('Pimpinan'))
-                        <x-nav-link :href="route('pimpinan.dashboard')" :active="request()->routeIs('pimpinan.*')">
-                            {{ __('Laporan Utilisasi') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('pimpinan.dashboard')" :active="request()->routeIs('pimpinan.*')">
+                        {{ __('Laporan Utilisasi') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -78,7 +82,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -108,34 +112,37 @@
 
             <!-- Responsive Links Khusus Per Role -->
             @if(auth()->user()->hasRole('Admin'))
-                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Persetujuan Peminjaman') }}
-                </x-responsive-nav-link>
-                <!-- Navigation Link Sendiri untuk Kelola Aset (Mobile) -->
-                <x-responsive-nav-link :href="route('admin.aset.index')" :active="request()->routeIs('admin.aset.*')">
-                    {{ __('Kelola Aset') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                {{ __('Persetujuan Peminjaman') }}
+            </x-responsive-nav-link>
+            <!-- Navigation Link Sendiri untuk Kelola Aset (Mobile) -->
+            <x-responsive-nav-link :href="route('admin.aset.index')" :active="request()->routeIs('admin.aset.*')">
+                {{ __('Kelola Aset') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                {{ __('Kelola User') }}
+            </x-responsive-nav-link>
             @endif
 
             @if(auth()->user()->hasRole('Petugas'))
-                <x-responsive-nav-link :href="route('petugas.dashboard')" :active="request()->routeIs('petugas.*')">
-                    {{ __('Serah Terima Barang') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('petugas.dashboard')" :active="request()->routeIs('petugas.*')">
+                {{ __('Serah Terima Barang') }}
+            </x-responsive-nav-link>
             @endif
 
             @if(auth()->user()->hasRole('Peminjam'))
-                <x-responsive-nav-link :href="route('peminjam.dashboard')" :active="request()->routeIs('peminjam.dashboard')">
-                    {{ __('Pengajuan Peminjaman') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('peminjam.pelanggaran')" :active="request()->routeIs('peminjam.pelanggaran')">
-                    {{ __('Pelanggaran Saya') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('peminjam.dashboard')" :active="request()->routeIs('peminjam.dashboard')">
+                {{ __('Pengajuan Peminjaman') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('peminjam.pelanggaran')" :active="request()->routeIs('peminjam.pelanggaran')">
+                {{ __('Pelanggaran Saya') }}
+            </x-responsive-nav-link>
             @endif
 
             @if(auth()->user()->hasRole('Pimpinan'))
-                <x-responsive-nav-link :href="route('pimpinan.dashboard')" :active="request()->routeIs('pimpinan.*')">
-                    {{ __('Laporan Utilisasi') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pimpinan.dashboard')" :active="request()->routeIs('pimpinan.*')">
+                {{ __('Laporan Utilisasi') }}
+            </x-responsive-nav-link>
             @endif
         </div>
 
@@ -156,7 +163,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

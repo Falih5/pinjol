@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\AsetController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -47,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/aset/{id}/edit', [AsetController::class, 'edit'])->name('aset.edit');
         Route::put('/aset/{id}', [AsetController::class, 'update'])->name('aset.update');
         Route::patch('/aset/{id}/toggle-status', [AsetController::class, 'toggleStatus'])->name('aset.toggleStatus');
+
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::patch('/users/{id}/toggle-banned', [UserController::class, 'toggleBanned'])->name('users.toggleBanned');
     });
     // ==========================================
     // 2. AREA PETUGAS GUDANG
