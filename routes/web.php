@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route terproteksi (Harus Login)
